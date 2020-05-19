@@ -1,0 +1,83 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Explorar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true">
+  <div class="search-area ion-margin-horizontal">
+    <ion-searchbar
+      (ionClear)="clearInput()"
+      (ionChange)="searchMovie()"
+      [(ngModel)]="query"
+      placeholder="Pesquisar"
+      animated="true"
+    ></ion-searchbar>
+  </div>
+  <div class="ion-padding" *ngIf="isSearching && !isLoading">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Filmes</ion-label>
+      </ion-item-divider>
+
+      <ion-item
+        *ngFor="let movie of movieResults.slice(0,5)"
+        lines="none"
+        [routerLink]="['/movie-details', movie.id]"
+        detail
+      >
+        <ion-label>
+          <h2 [innerHTML]="movie.title | highlight : query"><span>({{movie.release_date | date: 'yyyy' }}</span></h2>
+          <!-- <h2>{{ movie.title | highlight : query}} ({{movie.release_date | date: 'yyyy' }})</h2> -->
+          <p [innerHTML]="movie.original_title | highlight : query"></p>
+        </ion-label>
+        <!-- <ion-note slot="end">{{movie.release_date | date: 'yyyy' }}</ion-note> -->
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group *ngIf="personResults.length > 0">
+      <ion-item-divider>
+        <ion-label>Pessoas</ion-label>
+      </ion-item-divider>
+
+      <ion-item
+        *ngFor="let person of personResults.slice(0,5)"
+        lines="none"
+        [routerLink]="['/people', person.id]"
+        detail
+      >
+        <ion-label>
+          <h2>{{ person.name }}</h2>
+          <p>
+            <span *ngFor="let movie of person.known_for"
+              ><span *ngIf="movie.original_title">{{ movie.original_title }}, </span></span
+            >
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </div>
+
+  <!--Sliders -->
+  <div class="movie-sliders" *ngIf="!isLoading && !isSearching">
+    <div class="ion-padding">
+      <div class="card-title">
+        <h1>Em Alta</h1>
+      </div>
+      <app-movies-slider [movieList]="popularMovies" [hasText]="false" [isTmdb]="true"></app-movies-slider>
+    </div>
+    <div class="ion-padding-horizontal">
+      <div class="card-title">
+        <h1>Nos Cinemas</h1>
+      </div>
+      <app-movies-slider [movieList]="nowPlaying" [hasText]="false" [isTmdb]="true"></app-movies-slider>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ion-content>

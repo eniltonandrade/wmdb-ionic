@@ -1,0 +1,8 @@
+{
+  "appId": "com.android.wmdb",
+  "appName": "WMDB",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

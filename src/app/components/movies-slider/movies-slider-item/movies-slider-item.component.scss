@@ -1,0 +1,44 @@
+.swiper-slide {
+  flex-direction: column !important;
+}
+
+.slide-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  right: 5px;
+  z-index: 9999;
+  top: 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 2px 5px;
+}
+
+.slide-wrapper img {
+  border-radius: 10px !important;
+  max-height: 180px;
+}
+
+ion-slide {
+  img {
+    border-radius: 5px;
+    width: 100% !important;
+  }
+}
+
+.slide-movie-text {
+  text-align: center;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.no-poster {
+  display: block;
+}

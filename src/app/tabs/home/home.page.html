@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>WMDB</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content" *ngIf="(data$ | async ) as data ; else loadingOrError">
+    <div class="welcome-card">
+      <h1>
+        {{ data.movieCount.count }}
+      </h1>
+      <span class="description">Filmes Assistidos</span>
+      <div class="detail">
+        <div class="box-detail">
+          <span class=""> {{ data.movieCount.month }}</span>
+          <span>Esse mês</span>
+        </div>
+        <div class="box-detail">
+          <span> {{ data.movieCount.year }}</span>
+          <span>Esse Ano</span>
+        </div>
+      </div>
+    </div>
+    <div class="time-card ion-padding">
+      <div class="card-title">
+        <h1>Tempo Assistindo Filmes</h1>
+      </div>
+      <div class="wrapper">
+        <div class="time-card-data" *ngIf="data.timeWatched.months > 0">
+          <div class="total">{{ data.timeWatched.months }}</div>
+          <div class="description">Mês</div>
+        </div>
+        <div class="time-card-data" *ngIf="data.timeWatched.days > 0">
+          <div class="total">{{ data.timeWatched.days }}</div>
+          <div class="description">Dias</div>
+        </div>
+        <div class="time-card-data" *ngIf="data.timeWatched.hours > 0">
+          <div class="total">{{ data.timeWatched.hours }}</div>
+          <div class="description">Horas</div>
+        </div>
+        <div class="time-card-data" *ngIf="data.timeWatched.minutes > 0">
+          <div class="total">{{ data.timeWatched.minutes }}</div>
+          <div class="description">Minutos</div>
+        </div>
+      </div>
+    </div>
+    <div class="movie-slide-car ion-padding">
+      <div class="card-title">
+        <h1>Assistidos Recentemente</h1>
+        <ion-icon slot="start" name="arrow-forward-outline"></ion-icon>
+      </div>
+      <app-movies-slider [movieList]="data.recentlyWatched" [hasText]="true" [isTmdb]="false"></app-movies-slider>
+    </div>
+  </div>
+  <ng-template #loadingOrError>
+    <ng-container *ngIf="error; else loading">
+      <div class="loading">
+        Alguma coisa deu errado!
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="loading">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    </ng-template>
+  </ng-template>
+</ion-content>

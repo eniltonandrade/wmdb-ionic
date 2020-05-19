@@ -1,0 +1,19 @@
+<div>
+  <div class="ion-padding custom-skeleton">
+    <ion-row>
+      <ion-col
+        size="4"
+        size-md="3"
+        size-lg="2"
+        *ngFor="let i of [].constructor(12)"
+        class="col-padding"
+      >
+        <ion-skeleton-text
+          animated
+          style="min-width: 100px; min-height: 150px; border-radius: 5px;"
+        ></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+app-shrinking-segment-header {
+  background-color: #363636;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  h3,
+  p {
+    margin: 5px 0;
+  }
+}
+
+.header::after {
+  content: '';
+  background: #000;
+  opacity: 0.7;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+ion-header ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  position: relative;
+  z-index: 99;
+}
+
+.no-transparency {
+  background-color: var(--ion-background-color) !important;
+}
+
+ion-grid {
+  p {
+    font-size: 12px;
+  }
+}

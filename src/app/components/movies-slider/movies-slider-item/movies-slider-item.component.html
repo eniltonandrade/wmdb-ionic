@@ -1,0 +1,7 @@
+<div class="slide-wrapper" (click)="onClickPoster(movie.id)">
+  <img [src]="posterImg" alt="" srcset="" />
+  <div class="overlay">{{ movie.vote_average | number: '1.1-2' }}</div>
+</div>
+<div class="slide-movie-text" *ngIf="hasText">
+  {{ movie.UserMovies.watchedAt | momentjs: 'LL' }}
+</div>

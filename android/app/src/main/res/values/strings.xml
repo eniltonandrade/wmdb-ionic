@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">WMDB</string>
+    <string name="title_activity_main">WMDB</string>
+    <string name="package_name">com.android.wmdb</string>
+    <string name="custom_url_scheme">com.android.wmdb</string>
+</resources>

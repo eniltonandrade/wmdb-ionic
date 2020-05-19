@@ -1,0 +1,172 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar #toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/search"></ion-back-button>
+    </ion-buttons>
+    <ion-title #title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  *ngIf="movie"
+  fullscreen
+  appModifyHeader
+  [scrollEvents]="true"
+  [toolbar]="toolbar"
+  [title]="movie.title"
+  [ionTitle]="title"
+>
+  <div class="content" *ngIf="!isLoading">
+    <div class="backdrop ion-no-padding" *ngIf="movie && movie.backdrop_path">
+      <ion-img [src]="backdropUrl"></ion-img>
+    </div>
+    <div class="movie-content" *ngIf="movie">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="movie-content-header">
+              <div class="movie-poster">
+                <img [src]="posterUrl" />
+              </div>
+              <div class="movie-header-details ion-align-self-end">
+                {{ movie.title }}
+                <div class="movie-header-second">
+                  {{ movie.release_date | date: 'yyyy' }} - {{ movie.runtime }} minutos
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ion-grid class="fix-position" *ngIf="movie">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item lines="none">
+            <ion-icon name="eye-outline" slot="start"></ion-icon>
+            <ion-label *ngIf="!watchedDate">Não Assistido</ion-label>
+            <ion-label *ngIf="watchedDate">{{ watchedDate | momentjs: 'LL' }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="separator">Sinopse</ion-label>
+        </ion-col>
+        <ion-col size="12" class="ion-padding">
+          <p class="p-overview">{{ movie.overview }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="separator">Notas</ion-label>
+        </ion-col>
+        <ion-col size="12" class="ion-padding">
+          <div class="scores">
+            <div class="score-wrapper">
+              <span class="icon"><img src="../../assets/img/tmdb_icon.svg" alt="tmdb" class="tmdb" /></span>
+              <div class="score">
+                {{ movie.vote_average | number: '1.1-2' }}
+              </div>
+            </div>
+            <div class="score-wrapper">
+              <span class="icon"><img src="../../assets/img/imdb_icon.svg" alt="imdb" class="imdb" /></span>
+              <div class="score">
+                {{ imdbScore | number: '1.1-2' }}
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="separator">Gêneros</ion-label>
+        </ion-col>
+        <ion-col size="12" class="ion-padding">
+          <div>
+            <ion-badge *ngFor="let genre of movie.genres" color="primary">{{ genre.name }}</ion-badge>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding-bottom">
+        <ion-col size="12" class="ion-no-padding">
+          <ion-item class="ion-no-padding">
+            <ion-label class="ion-padding-horizontal">Diretores</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-item
+            *ngFor="let director of directors"
+            lines="none"
+            detail
+            [routerLink]="['/people', director.id]"
+            [queryParams]="{ role: 'directing'}"
+          >
+            <ion-avatar slot="start">
+              <img *ngIf="!director.profile_path" src="../../assets/img/nopic.svg" />
+              <img *ngIf="director.profile_path" [src]="profilePicUrl + director.profile_path" />
+            </ion-avatar>
+            <ion-label>{{ director.name }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding-bottom">
+        <ion-col size="12" class="ion-no-padding">
+          <ion-item class="ion-no-padding">
+            <ion-label class="ion-padding-horizontal">Elenco</ion-label>
+            <ion-button (click)="presentCastListModal()" color="dark" slot="end" *ngIf="movie.casts.cast.length > 10">
+              Ver Todos
+            </ion-button>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-item
+            *ngFor="let cast of movie.casts.cast.slice(0,5)"
+            lines="none"
+            detail
+            [routerLink]="['/people', cast.id]"
+          >
+            <ion-avatar slot="start">
+              <img *ngIf="!cast.profile_path" src="../../assets/img/nopic.svg" />
+              <img *ngIf="cast.profile_path" [src]="profilePicUrl + cast.profile_path" />
+            </ion-avatar>
+            <ion-label>
+              <h2>{{ cast.name }}</h2>
+              <p>{{ cast.character }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding">
+          <ion-label class="separator">Gêneros</ion-label>
+        </ion-col>
+        <ion-col size="12" class="ion-padding">
+          <div>
+            <ion-badge *ngFor="let company of movie.production_companies" color="primary">{{ company.name }}</ion-badge>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!isLoading">
+    <ion-fab-button (click)="presentActionSheet()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="loading" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ion-content>
+<ion-datetime
+  (ionChange)="dateChanged($event)"
+  #startTimePicker
+  displayFormat="DD/MMM/YYYY H:mm"
+  cancelText="Cancelar"
+  doneText="Salvar"
+  [monthShortNames]="customMonthShortNames"
+  min="1994-03-14"
+  [max]="today.toISOString()"
+  [value]="today.toISOString()"
+  hidden="true"
+></ion-datetime>

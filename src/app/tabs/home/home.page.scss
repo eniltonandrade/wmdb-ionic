@@ -1,0 +1,68 @@
+ion-header ion-toolbar {
+  --background: linear-gradient(90deg, rgba(82, 209, 35, 1) 0%, rgba(0, 210, 102, 1) 100%);
+  --ion-color-base: transparent !important;
+  z-index: 2;
+}
+
+ion-title {
+  font-family: 'Righteous', cursive;
+}
+
+.welcome-card {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 16px;
+  background: rgb(82, 209, 35);
+
+  background: linear-gradient(90deg, rgba(82, 209, 35, 1) 0%, rgba(0, 210, 102, 1) 100%);
+}
+
+.welcome-card h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.detail {
+  display: flex;
+}
+
+.box-detail {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+  padding: 0 16px;
+
+  .small-count {
+    font-weight: 700;
+  }
+}
+.box-detail:first-child {
+  border-right: 1px solid #cfcfcf;
+}
+
+.time-card .wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.time-card .time-card-data {
+  text-align: center;
+  width: 100%;
+  max-width: 83px;
+  padding: 16px;
+  background-color: #191f2e;
+}
+
+.time-card .time-card-data .total {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.time-card .time-card-data .description {
+  font-size: 12px;
+}

@@ -1,0 +1,9 @@
+<ion-slides pager="false" [options]="slideOpts">
+  <ion-slide *ngFor="let movie of movieList">
+    <app-movies-slider-item
+      [movie]="movie"
+      [hasText]="hasText"
+      [isTmdb]="isTmdb"
+    ></app-movies-slider-item>
+  </ion-slide>
+</ion-slides>

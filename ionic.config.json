@@ -1,5 +1,7 @@
 {
   "name": "wmdb-ionic",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
