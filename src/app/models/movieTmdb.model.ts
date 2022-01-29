@@ -26,11 +26,15 @@ export interface MovieTmdb {
   production_countries: string[];
   revenue: number;
   runtime: number;
+  department: string;
+  job: string;
+  character: string;
   spoken_languages: string[];
   status: string;
   tagline: string;
   casts: CastsTmdb;
   tmdbId: number;
+  imdbScore: number;
   UserMovies: {
     MovieId: number;
     UserId: number;

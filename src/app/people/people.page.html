@@ -1,8 +1,8 @@
 <ion-header *ngIf="!isLoading">
   <ion-toolbar #toolbar>
+    <ion-title #title>{{ person.name }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/search"></ion-back-button>
-      <ion-title #title>{{ person.name }}</ion-title>
     </ion-buttons>
   </ion-toolbar>
 
@@ -17,7 +17,7 @@
   >
     <img [src]="profilePic + person.profile_path" />
     <h3>{{ person.name }}</h3>
-    <p *ngIf="castWathedMovies">{{ castWathedMovies.length }} Filmes Assistidos</p>
+    <p>{{ castWathedMovies ? castWathedMovies?.length : 0 }} Filmes Assistidos</p>
   </app-shrinking-segment-header>
 
   <ion-toolbar mode="md" *ngIf="person" class="no-transparency">
@@ -41,6 +41,11 @@
 <ion-content fullscreen #myContent [scrollEvents]="true">
   <ion-grid fixed *ngIf="selecteTab == 'sobre' && person" class="ion-padding">
     <ion-row>
+      <ion-col size="12">
+        <ion-text color="light">
+          <h4>Informações</h4>
+        </ion-text>
+      </ion-col>
       <ion-col size="3">
         <ion-label color="primary">Idade:</ion-label>
         <p>{{ personAge }}</p>
@@ -53,9 +58,18 @@
         <ion-label color="primary">Biografia:</ion-label>
         <p>{{ person.biography }}</p>
       </ion-col>
+      <ion-col size="12">
+        <ion-text color="light">
+          <h4>Estatísticas</h4>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12">
+        <ion-label color="primary">Nota Média:</ion-label>
+        <p>8.5</p>
+      </ion-col>
     </ion-row>
   </ion-grid>
-  <app-movies-list *ngIf="selecteTab == 'cast'" [movies]="castOrderedMovies" [grid]="true"></app-movies-list>
-  <app-movies-list *ngIf="selecteTab == 'crew'" [movies]="crewOrderedMovies" [grid]="true"></app-movies-list>
-  <app-movies-list *ngIf="selecteTab == 'watched'" [movies]="castWathedMovies" [grid]="true"></app-movies-list>
+  <app-movies-list *ngIf="selecteTab === 'cast'" [movies]="castOrderedMovies" [grid]="true"></app-movies-list>
+  <app-movies-list *ngIf="selecteTab === 'crew'" [movies]="crewOrderedMovies" [grid]="true"></app-movies-list>
+  <app-movies-list *ngIf="selecteTab === 'watched'" [movies]="castWathedMovies" [grid]="true"></app-movies-list>
 </ion-content>

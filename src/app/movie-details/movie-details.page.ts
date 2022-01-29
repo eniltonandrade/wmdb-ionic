@@ -40,7 +40,7 @@ export class MovieDetailsPage {
     private imdb: ImdbService,
     public modalController: ModalController,
     private movieDetailsService: MovieDetailsService
-  ) {}
+  ) { }
 
   ionViewWillEnter() {
     console.log(this.startTimePicker);
@@ -59,9 +59,9 @@ export class MovieDetailsPage {
       )
       .subscribe((imdbData) => {
         if (!isNaN(imdbData.imdbRating)) {
-          this.imdbScore = imdbData.imdbRating;
+          this.movie.imdbScore = imdbData.imdbRating;
         } else {
-          this.imdbScore = '0';
+          this.movie.imdbScore = 0;
         }
       });
 
@@ -112,7 +112,7 @@ export class MovieDetailsPage {
           text: 'Cancelar',
           icon: 'close',
           role: 'cancel',
-          handler: () => {},
+          handler: () => { },
         },
       ],
     });

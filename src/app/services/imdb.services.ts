@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class ImdbService {
   private apiKey = environment.TMDB.apiKey;
   private apiUrl =
-    'https://cors-anywhere.herokuapp.com/https://www.omdbapi.com/?apikey=c4eb5528&';
+    'https://www.omdbapi.com/?apikey=c4eb5528&';
 
   constructor(private http: HttpClient) {}
 

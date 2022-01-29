@@ -1,24 +1,14 @@
 <ion-grid>
   <ion-row *ngIf="grid">
-    <ion-col
-      size="4"
-      size-md="3"
-      size-lg="2"
-      *ngFor="let movie of movies"
-      class="col-padding"
-    >
+    <ion-col size="4" size-md="3" size-lg="2" *ngFor="let movie of movies" class="col-padding">
       <div class="siv">
         <a [routerLink]="['/movie-details', movie.id]">
-          <img
+          <ion-img
             *ngIf="movie.poster_path"
             [src]="posterUrl + movie.poster_path"
-            class="img-poster"
-          />
-          <img
-            *ngIf="!movie.poster_path"
-            [src]="imgPlaceholder"
-            class="img-poster"
-          />
+            style="border-radius: 5px; overflow: hidden;"
+          ></ion-img>
+          <img *ngIf="!movie.poster_path" [src]="imgPlaceholder" class="img-poster" />
         </a>
         <div class="overlay">{{ movie.vote_average | number: '1.1-2' }}</div>
       </div>

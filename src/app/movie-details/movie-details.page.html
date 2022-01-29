@@ -7,15 +7,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content
-  *ngIf="movie"
-  fullscreen
-  appModifyHeader
-  [scrollEvents]="true"
-  [toolbar]="toolbar"
-  [title]="movie.title"
-  [ionTitle]="title"
->
+<ion-content *ngIf="movie" fullscreen appModifyHeader [scrollEvents]="true" [toolbar]="toolbar" [title]="movie.title"
+  [ionTitle]="title">
   <div class="content" *ngIf="!isLoading">
     <div class="backdrop ion-no-padding" *ngIf="movie && movie.backdrop_path">
       <ion-img [src]="backdropUrl"></ion-img>
@@ -72,7 +65,7 @@
             <div class="score-wrapper">
               <span class="icon"><img src="../../assets/img/imdb_icon.svg" alt="imdb" class="imdb" /></span>
               <div class="score">
-                {{ imdbScore | number: '1.1-2' }}
+                {{ movie.imdbScore | number: '1.1-2' }}
               </div>
             </div>
           </div>
@@ -95,13 +88,8 @@
           </ion-item>
         </ion-col>
         <ion-col size="12" class="ion-no-padding">
-          <ion-item
-            *ngFor="let director of directors"
-            lines="none"
-            detail
-            [routerLink]="['/people', director.id]"
-            [queryParams]="{ role: 'directing'}"
-          >
+          <ion-item *ngFor="let director of directors" lines="none" detail [routerLink]="['/people', director.id]"
+            [queryParams]="{ role: 'directing'}">
             <ion-avatar slot="start">
               <img *ngIf="!director.profile_path" src="../../assets/img/nopic.svg" />
               <img *ngIf="director.profile_path" [src]="profilePicUrl + director.profile_path" />
@@ -120,12 +108,8 @@
           </ion-item>
         </ion-col>
         <ion-col size="12" class="ion-no-padding">
-          <ion-item
-            *ngFor="let cast of movie.casts.cast.slice(0,5)"
-            lines="none"
-            detail
-            [routerLink]="['/people', cast.id]"
-          >
+          <ion-item *ngFor="let cast of movie.casts.cast.slice(0,5)" lines="none" detail
+            [routerLink]="['/people', cast.id]">
             <ion-avatar slot="start">
               <img *ngIf="!cast.profile_path" src="../../assets/img/nopic.svg" />
               <img *ngIf="cast.profile_path" [src]="profilePicUrl + cast.profile_path" />
@@ -158,15 +142,6 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 </ion-content>
-<ion-datetime
-  (ionChange)="dateChanged($event)"
-  #startTimePicker
-  displayFormat="DD/MMM/YYYY H:mm"
-  cancelText="Cancelar"
-  doneText="Salvar"
-  [monthShortNames]="customMonthShortNames"
-  min="1994-03-14"
-  [max]="today.toISOString()"
-  [value]="today.toISOString()"
-  hidden="true"
-></ion-datetime>
+<ion-datetime (ionChange)="dateChanged($event)" #startTimePicker displayFormat="DD/MMM/YYYY H:mm" cancelText="Cancelar"
+  doneText="Salvar" [monthShortNames]="customMonthShortNames" min="1994-03-14" [max]="today.toISOString()"
+  [value]="today.toISOString()" hidden="true"></ion-datetime>

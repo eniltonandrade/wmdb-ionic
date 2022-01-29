@@ -34,15 +34,15 @@
           <div class="total">{{ data.timeWatched.months }}</div>
           <div class="description">Mês</div>
         </div>
-        <div class="time-card-data" *ngIf="data.timeWatched.days > 0">
+        <div class="time-card-data" *ngIf="data.timeWatched.days >= 0">
           <div class="total">{{ data.timeWatched.days }}</div>
           <div class="description">Dias</div>
         </div>
-        <div class="time-card-data" *ngIf="data.timeWatched.hours > 0">
+        <div class="time-card-data" *ngIf="data.timeWatched.hours >= 0">
           <div class="total">{{ data.timeWatched.hours }}</div>
           <div class="description">Horas</div>
         </div>
-        <div class="time-card-data" *ngIf="data.timeWatched.minutes > 0">
+        <div class="time-card-data" *ngIf="data.timeWatched.minutes >= 0">
           <div class="total">{{ data.timeWatched.minutes }}</div>
           <div class="description">Minutos</div>
         </div>
